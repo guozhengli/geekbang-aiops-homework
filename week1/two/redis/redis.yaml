@@ -1,0 +1,25 @@
+apiVersion: redis.tencentcloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: my-redis-instance
+spec:
+  forProvider:
+    passwordSecretRef: 
+      name: example-creds
+      namespace: crossplane
+      key: credentials
+    availabilityZone: "ap-hongkong"
+    memSize: 128
+    chargeType: "SPOTPAID"
+    name: my-redis
+    vpcId: "example-redis-vpc"
+    subnetId: "example-redis-subnet"
+  providerConfigRef:
+    name: default
+  publishConnectionDetailsTo:
+    name: my-redis-instance
+    configRef:
+      name: default
+  writeConnectionSecretToRef:
+    name: my-redis-instance
+    namespace: crossplane
